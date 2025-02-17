@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mobile banking application</string>
+    <string name="welcome_to_the_banking_app">Welcome to the Banking App</string>
+</resources>
