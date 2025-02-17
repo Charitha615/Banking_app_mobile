@@ -83,7 +83,7 @@
         android:layout_marginHorizontal="20dp"/>
 
     <TextView
-        android:id="@+id/registerPrompt"
+        android:id="@+id/loginPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Do you have an account? Login"

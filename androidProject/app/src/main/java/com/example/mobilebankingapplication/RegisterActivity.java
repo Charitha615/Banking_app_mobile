@@ -1,8 +1,10 @@
 package com.example.mobilebankingapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText fullName, email, password;
     private Button registerButton;
+    private TextView loginPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         registerButton = findViewById(R.id.registerButton);
+        loginPrompt = findViewById(R.id.loginPrompt);
 
         registerButton.setOnClickListener(v -> {
             String name = fullName.getText().toString();
@@ -38,6 +42,10 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        loginPrompt.setOnClickListener(v -> {
+            startActivity(new Intent(RegisterActivity.this, LoginScreen.class));
         });
     }
 
