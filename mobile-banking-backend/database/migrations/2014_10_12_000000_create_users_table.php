@@ -17,8 +17,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('user_type')->default('User');
+            $table->string('account_number')->unique();
+            $table->string('branch')->nullable();
+            $table->decimal('balance', 15, 2)->default(0.00);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
