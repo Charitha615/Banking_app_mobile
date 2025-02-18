@@ -36,6 +36,36 @@
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="20dp"/>
 
+    <EditText
+        android:id="@+id/accNumber"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Account Number"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/glowing_edittext"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/fullName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <EditText
+        android:id="@+id/branch"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Bank Branch"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/glowing_edittext"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/accNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"/>
+
     <!-- Glowing Email Field -->
     <EditText
         android:id="@+id/email"
@@ -46,7 +76,7 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/glowing_edittext"
         android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/fullName"
+        app:layout_constraintTop_toBottomOf="@id/branch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"

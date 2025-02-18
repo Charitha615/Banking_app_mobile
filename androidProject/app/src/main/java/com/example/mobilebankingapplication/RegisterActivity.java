@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText fullName, email, password;
+    private EditText fullName, email, password,accNumber,branch;
     private Button registerButton;
     private TextView loginPrompt;
 
@@ -28,6 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         fullName = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
+        accNumber = findViewById(R.id.accNumber);
+        branch = findViewById(R.id.branch);
         password = findViewById(R.id.password);
         registerButton = findViewById(R.id.registerButton);
         loginPrompt = findViewById(R.id.loginPrompt);
@@ -35,10 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(v -> {
             String name = fullName.getText().toString();
             String userEmail = email.getText().toString();
+            String useraccNumber = accNumber.getText().toString();
+            String userbranch = branch.getText().toString();
             String userPassword = password.getText().toString();
 
-            if (!name.isEmpty() && !userEmail.isEmpty() && !userPassword.isEmpty()) {
-                registerUser(name, userEmail, userPassword);
+            if (!name.isEmpty() && !userEmail.isEmpty() && !useraccNumber.isEmpty() && !userbranch.isEmpty() && !userPassword.isEmpty()) {
+                registerUser(name, userEmail,useraccNumber,userbranch, userPassword);
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             }
@@ -49,25 +53,30 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String name, String email, String password) {
+    private void registerUser(String name, String email, String account_number, String branch, String password) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        RegisterRequest registerRequest = new RegisterRequest(name, email, password);
+        RegisterRequest registerRequest = new RegisterRequest(name, email, password, "User", account_number, branch);
 
         Call<RegisterResponse> call = apiService.register(registerRequest);
         call.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                    finish(); // Go back to the login screen
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().isSuccess()) {
+                        Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
+                        finish(); // Go back to the login screen
+                    } else {
+                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                t.printStackTrace(); // Print the stack trace
+                Toast.makeText(RegisterActivity.this,  t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

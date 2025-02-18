@@ -56,9 +56,38 @@ public class LoginScreen extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
+                    LoginResponse loginResponse = response.body();
+                    String token = loginResponse.getToken();
+                    LoginResponse.User user = loginResponse.getUser();
+
+                    // Save user details using SharedPreferences
+                    SharedPrefManager.getInstance(LoginScreen.this).saveUserDetails(
+                            token,
+                            user.getId(),
+                            user.getName(),
+                            user.getEmail(),
+                            user.getUserType(),
+                            user.getAccountNumber(),
+                            user.getBranch(),
+                            user.getBalance()
+                    );
+
+                    // Or save user details using Singleton
+//                    UserSession.getInstance().setUserDetails(
+//                            token,
+//                            user.getId(),
+//                            user.getName(),
+//                            user.getEmail(),
+//                            user.getUserType(),
+//                            user.getAccountNumber(),
+//                            user.getBranch(),
+//                            user.getBalance()
+//                    );
+
                     Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    // Navigate to the main screen
+                    startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                    finish(); // Close the login screen
                 } else {
                     Toast.makeText(LoginScreen.this, "Login Failed", Toast.LENGTH_SHORT).show();
                 }
