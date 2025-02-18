@@ -86,7 +86,7 @@ public class LoginScreen extends AppCompatActivity {
 //                    );
 
                     Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginScreen.this, MainActivity.class));
+                    startActivity(new Intent(LoginScreen.this, DashboardActivity.class));
                     finish(); // Close the login screen
                 } else {
                     Toast.makeText(LoginScreen.this, "Login Failed", Toast.LENGTH_SHORT).show();

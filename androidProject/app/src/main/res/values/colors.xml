@@ -1,5 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/colors.xml -->
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="primary_color">#6200EE</color> <!-- Purple 500 -->
+    <color name="primary_dark">#3700B3</color> <!-- Purple 700 -->
+    <color name="primary_light">#BB86FC</color> <!-- Purple 200 -->
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#03DAC6</color> <!-- Teal 200 -->
+    <color name="secondary_dark">#018786</color> <!-- Teal 700 -->
+
+    <!-- Background Colors -->
+    <color name="background_color">#FFFFFF</color> <!-- White -->
+    <color name="surface_color">#FFFFFF</color> <!-- White -->
+    <color name="background_dark">#121212</color> <!-- Dark background -->
+
+    <!-- Text Colors -->
+    <color name="text_primary">#000000</color> <!-- Black -->
+    <color name="text_secondary">#6F6D6F</color> <!-- Gray -->
+    <color name="text_on_primary">#FFFFFF</color> <!-- White -->
+    <color name="text_on_secondary">#000000</color> <!-- Black -->
+    <color name="secondary_text_color">#6F6D6F</color> <!-- Gray (for secondary text) -->
+
+    <!-- Error Color -->
+    <color name="error_color">#B00020</color> <!-- Red -->
+
+    <!-- Bottom Navigation Colors -->
+    <color name="bottom_nav_selected">#6200EE</color> <!-- Purple 500 -->
+    <color name="bottom_nav_unselected">#6F6D6F</color> <!-- Gray -->
+
+    <!-- Card View Colors -->
+    <color name="card_background">#FFFFFF</color> <!-- White -->
+    <color name="card_elevation">#E0E0E0</color> <!-- Light Gray -->
+
+    <!-- Additional Colors -->
+    <color name="white">#FFFFFF</color> <!-- White -->
+    <color name="black">#000000</color> <!-- Black -->
+    <color name="transparent">#00000000</color> <!-- Transparent -->
 </resources>

@@ -43,10 +43,28 @@ public class SharedPrefManager {
         return sharedPreferences.getInt("id", -1);
     }
 
+//    public String getUserName() {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        return sharedPreferences.getString("name", null);
+//    }
+
     public String getUserName() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("name", null);
+        return sharedPreferences.getString("name", "User");
     }
 
-    // Add more methods to retrieve other user details as needed
+    public String getUserEmail() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString("email", "user@example.com");
+    }
+
+    public String getAccountNumber() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString("account_number", "123456789");
+    }
+
+    public String getBalance() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString("balance", "0.00");
+    }
 }
