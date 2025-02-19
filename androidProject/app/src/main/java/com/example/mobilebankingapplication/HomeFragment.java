@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 },
-                error -> Toast.makeText(requireContext(), "Error loading notifications", Toast.LENGTH_SHORT).show()
+                error -> Toast.makeText(requireContext(), "No notifications", Toast.LENGTH_SHORT).show()
         ) {
             @Override
             public Map<String, String> getHeaders() {

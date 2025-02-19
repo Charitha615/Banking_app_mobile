@@ -2,15 +2,25 @@ package com.example.mobilebankingapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -29,8 +39,8 @@ public class DashboardActivity extends AppCompatActivity {
         tvBalance = findViewById(R.id.tvBalance);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        // Load user details from SharedPreferences
-        loadUserDetails();
+        // Fetch and update user details from the API
+        fetchUserDetails();
 
         // Set up bottom navigation
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
@@ -39,9 +49,61 @@ public class DashboardActivity extends AppCompatActivity {
         loadFragment(new HomeFragment());
     }
 
+    private void fetchUserDetails() {
+        int userId = SharedPrefManager.getInstance(this).getUserId();
+        String token = SharedPrefManager.getInstance(this).getToken();
+        String url = "http://10.0.2.2:8000/api/users/" + userId;
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        // Parse the response
+                        JSONObject userJson = response.getJSONObject("user");
+                        String name = userJson.getString("name");
+                        String email = userJson.getString("email");
+                        String accountNumber = userJson.getString("account_number");
+                        String balance = userJson.getString("balance");
+
+                        // Update SharedPrefManager
+                        SharedPrefManager.getInstance(this).saveUserDetails(
+                                token,
+                                userId,
+                                name,
+                                email,
+                                userJson.getString("user_type"),
+                                accountNumber,
+                                userJson.getString("branch"),
+                                balance
+                        );
+
+                        // Update the UI with the latest details
+                        loadUserDetails();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("API_ERROR", "Error parsing user details: " + e.getMessage());
+                    }
+                },
+                error -> {
+                    Log.e("API_ERROR", "Error fetching user details: " + error.getMessage());
+                    Toast.makeText(this, "Failed to fetch user details", Toast.LENGTH_SHORT).show();
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+    }
+
     private void loadUserDetails() {
         SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(this);
-        tvUserName.setText("Welcome, " + sharedPrefManager.getUserName() + "!");
+        tvUserName.setText("Welcome, " + sharedPrefManager.getUserName() + "!  " + sharedPrefManager.getUserId());
         tvUserEmail.setText(sharedPrefManager.getUserEmail());
         tvAccountNumber.setText("Account Number: " + sharedPrefManager.getAccountNumber());
         tvBalance.setText("Balance: $" + sharedPrefManager.getBalance());

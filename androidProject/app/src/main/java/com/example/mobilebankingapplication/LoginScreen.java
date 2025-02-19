@@ -33,10 +33,10 @@ public class LoginScreen extends AppCompatActivity {
         registerPrompt = findViewById(R.id.registerPrompt);
 
         loginButton.setOnClickListener(v -> {
-//            String userEmail = email.getText().toString();
-//            String userPassword = password.getText().toString();
-            String userEmail = "cha@gmail.com";
-            String userPassword = "123456789";
+            String userEmail = email.getText().toString();
+            String userPassword = password.getText().toString();
+//            String userEmail = "cha@gmail.com";
+//            String userPassword = "123456789";
 
             if (!userEmail.isEmpty() && !userPassword.isEmpty()) {
                 loginUser(userEmail, userPassword);

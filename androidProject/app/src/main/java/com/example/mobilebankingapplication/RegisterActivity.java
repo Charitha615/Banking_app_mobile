@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText fullName, email, password,accNumber,branch;
+    private EditText fullName, email, password,accNumber,branch,phone;
     private Button registerButton;
     private TextView loginPrompt;
 
@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         accNumber = findViewById(R.id.accNumber);
         branch = findViewById(R.id.branch);
+        phone = findViewById(R.id.phone);
         password = findViewById(R.id.password);
         registerButton = findViewById(R.id.registerButton);
         loginPrompt = findViewById(R.id.loginPrompt);
@@ -39,10 +40,11 @@ public class RegisterActivity extends AppCompatActivity {
             String userEmail = email.getText().toString();
             String useraccNumber = accNumber.getText().toString();
             String userbranch = branch.getText().toString();
+            String userphone = phone.getText().toString();
             String userPassword = password.getText().toString();
 
-            if (!name.isEmpty() && !userEmail.isEmpty() && !useraccNumber.isEmpty() && !userbranch.isEmpty() && !userPassword.isEmpty()) {
-                registerUser(name, userEmail,useraccNumber,userbranch, userPassword);
+            if (!name.isEmpty() && !userEmail.isEmpty() && !userphone.isEmpty() && !useraccNumber.isEmpty() && !userbranch.isEmpty() && !userPassword.isEmpty()) {
+                registerUser(name, userEmail,userphone,useraccNumber,userbranch, userPassword);
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             }
@@ -53,9 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String name, String email, String account_number, String branch, String password) {
+    private void registerUser(String name, String email,String phone, String account_number, String branch, String password) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        RegisterRequest registerRequest = new RegisterRequest(name, email, password, "User", account_number, branch);
+        RegisterRequest registerRequest = new RegisterRequest(name, email,phone, password, "User", account_number, branch);
 
         Call<RegisterResponse> call = apiService.register(registerRequest);
         call.enqueue(new Callback<RegisterResponse>() {

@@ -19,6 +19,7 @@ class AuthController extends Controller
             'user_type' => 'required|string|max:255',
             'account_number' => 'required|string|max:255',
             'branch' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -36,7 +37,9 @@ class AuthController extends Controller
             'user_type' => $request->user_type,
             'account_number' => $request->account_number,
             'branch' => $request->branch,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
+            'balance' => 1000,
         ]);
 
         // Generate token
@@ -119,4 +122,57 @@ class AuthController extends Controller
 
         return response()->json(['users' => $users], 200);
     }
+
+    public function getUserById($id)
+    {
+        $user = User::find($id); // Fetch user by ID
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json(['user' => $user], 200);
+    }
+
+    public function deleteUserById($id)
+    {
+        $user = User::find($id); // Find the user by ID
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete(); // Delete the user
+
+        return response()->json(['message' => 'User deleted successfully'], 200);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Validate incoming data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'phone' => 'required|string|max:255',
+        ]);
+
+        // Update user fields
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+        ]);
+
+        return response()->json(['message' => 'User updated successfully', 'user' => $user], 200);
+    }
+
+
+
 }

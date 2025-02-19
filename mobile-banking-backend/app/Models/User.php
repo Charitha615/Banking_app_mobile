@@ -24,6 +24,7 @@ class User extends Authenticatable
         'account_number',
         'branch',
         'balance',
+        'phone',
         'password',
     ];
 

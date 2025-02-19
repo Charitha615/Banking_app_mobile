@@ -82,6 +82,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"/>
 
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:hint="Phone"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/glowing_edittext"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"/>
+
     <!-- Glowing Password Field -->
     <EditText
         android:id="@+id/password"
@@ -92,7 +107,7 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/glowing_edittext"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintTop_toBottomOf="@id/phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
