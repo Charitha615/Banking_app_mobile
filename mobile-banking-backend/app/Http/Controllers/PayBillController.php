@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\PayBill;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,6 +43,14 @@ class PayBillController extends Controller
 
         // Create the PayBill record
         $payBill = PayBill::create($validatedData);
+
+        // Create a notification for the user
+        $notification = Notification::create([
+            'user_id' => $userId,
+            'title' => 'Bill Payment Successful',
+            'description' => 'Your payment of ' . $amount . ' for ' . $validatedData['bill_type'] . ' has been processed successfully.',
+            'is_read' => false, // Default value for is_read
+        ]);
 
         // Return the created PayBill record with a 201 status code
         return response()->json($payBill, 201);

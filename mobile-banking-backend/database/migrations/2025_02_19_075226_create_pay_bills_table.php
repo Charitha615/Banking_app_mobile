@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('bill_type');
-            $table->string('account_number');
+            $table->string('account_number',500);
             $table->decimal('amount', 10, 2);
             $table->date('date');
             $table->time('time');
