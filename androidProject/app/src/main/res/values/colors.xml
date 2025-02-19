@@ -36,4 +36,6 @@
     <color name="white">#FFFFFF</color> <!-- White -->
     <color name="black">#000000</color> <!-- Black -->
     <color name="transparent">#00000000</color> <!-- Transparent -->
+    <color name="gray">#00484646</color> <!-- Transparent -->
+    <color name="red">#F44336</color> <!-- Transparent -->
 </resources>

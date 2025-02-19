@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CreditCard"
+            android:exported="false" />
+        <activity
+            android:name=".TranferFunds"
+            android:exported="false" />
+        <activity
+            android:name=".PayBills"
+            android:exported="false" />
+        <activity
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity
