@@ -1,46 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Bill Type -->
+    <TextView
+        android:id="@+id/billType"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Bill Type"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <!-- Transaction Title -->
+    <!-- Account Number -->
+    <TextView
+        android:id="@+id/accountNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Number"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Amount -->
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Date and Time -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+
         <TextView
-            android:id="@+id/transactionTitle"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Utility Bill Payment"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:text="Date"
+            android:textSize="14sp" />
 
-        <!-- Transaction Date -->
         <TextView
-            android:id="@+id/transactionDate"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Oct 10, 2023"
+            android:text="Time"
             android:textSize="14sp"
-            android:textColor="@color/gray"
-            android:layout_marginTop="4dp"/>
-
-        <!-- Transaction Amount -->
-        <TextView
-            android:id="@+id/transactionAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-$50.00"
-            android:textSize="16sp"
-            android:textColor="@color/red"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginStart="8dp" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+</LinearLayout>
