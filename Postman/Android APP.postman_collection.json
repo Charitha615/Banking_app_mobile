@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "ddef8017-6605-4937-9b0b-7ba3205c376c",
+		"name": "Android APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pay Bills",
+			"item": [
+				{
+					"name": "Create a PayBill",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|ssTuvY9gsu0fcdLzvR8tTJNskjBojx2rbzayyOOR37f2559f",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "bill_type",
+									"value": "Electricity",
+									"type": "text"
+								},
+								{
+									"key": "account_number",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "155",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2023-10-01",
+									"type": "text"
+								},
+								{
+									"key": "time",
+									"value": "14:30:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url-l}}api/paybills/create",
+							"host": [
+								"{{url-l}}api"
+							],
+							"path": [
+								"paybills",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All PayBills by User ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "50|wEIkjxEZNM1bSdNzmfky0hFBiNlciQaW1sOhAWKpeb40fa0a",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url-l}}api/paybills/user/1",
+							"host": [
+								"{{url-l}}api"
+							],
+							"path": [
+								"paybills",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "View ALl Notification By user ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-l}}api/users/1/notifications",
+							"host": [
+								"{{url-l}}api"
+							],
+							"path": [
+								"users",
+								"1",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfer Money",
+			"item": [
+				{
+					"name": "Add  Tranfer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|OgfLD8VIApkEm9T4OS9M5J2G0N9jfZRkDnm9zyfxf26be818",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "account_number",
+									"value": "45455555",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "200",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2023-10-01",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "time",
+									"value": "14:30:00",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url-l}}api/transfer/create",
+							"host": [
+								"{{url-l}}api"
+							],
+							"path": [
+								"transfer",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "cha",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "cha@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "user_type",
+							"value": "User",
+							"type": "text"
+						},
+						{
+							"key": "account_number",
+							"value": "7043555",
+							"type": "text"
+						},
+						{
+							"key": "branch",
+							"value": "Pili",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0789621706",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url-l}}api/register",
+					"host": [
+						"{{url-l}}api"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "cha@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url-l}}api/login",
+					"host": [
+						"{{url-l}}api"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|Iq44rDwB6O7eSdY3ez2eOUfEsVrTv356dNBGN2ppdb6273c3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url-l}}api/users",
+					"host": [
+						"{{url-l}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|Iq44rDwB6O7eSdY3ez2eOUfEsVrTv356dNBGN2ppdb6273c3",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url-l}}api/users/1",
+					"host": [
+						"{{url-l}}api"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
