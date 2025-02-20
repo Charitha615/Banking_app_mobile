@@ -65,6 +65,16 @@
         android:layout_weight="1" />
 
     <!-- Action Buttons -->
+
+    <Button
+        android:id="@+id/btnTopUpMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Top Up Money"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@color/white"
+        android:layout_marginBottom="8dp" />
+
     <Button
         android:id="@+id/btnEditProfile"
         android:layout_width="match_parent"

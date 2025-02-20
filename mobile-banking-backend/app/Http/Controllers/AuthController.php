@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
+use App\Models\PayBill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -172,6 +174,48 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'User updated successfully', 'user' => $user], 200);
     }
+
+    public function updateBalance(Request $request, $id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Validate incoming data
+        $request->validate([
+            'balance' => 'required|numeric|min:0|max:9999999.99',
+        ]);
+
+        // Update user balance
+        $user->balance = $request->balance;
+
+        Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Top-Up Successful',
+            'description' => "A top-up of {$request->balance} has been added successfully to account number {$user->account_number}.",
+            'is_read' => false,
+        ]);
+
+        // Log the top-up transaction in PayBill history
+        PayBill::create([
+            'user_id' => $user->id,
+            'bill_type' => 'Money Top-Up Successful',
+            'account_number' => $user->account_number,
+            'amount' => $request->balance,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+        ]);
+
+        if ($user->save()) {
+            return response()->json(['message' => 'User balance updated successfully', 'user' => $user], 200);
+        }
+
+        return response()->json(['message' => 'Failed to update user balance'], 500);
+    }
+
 
 
 

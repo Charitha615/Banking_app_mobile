@@ -1,5 +1,6 @@
 package com.example.mobilebankingapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -101,6 +102,7 @@ public class DashboardActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 
+    @SuppressLint("SetTextI18n")
     private void loadUserDetails() {
         SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(this);
         tvUserName.setText("Welcome, " + sharedPrefManager.getUserName() + "!  " + sharedPrefManager.getUserId());

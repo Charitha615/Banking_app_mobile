@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +36,7 @@ public class ProfileFragment extends Fragment {
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnDeactivateProfile = view.findViewById(R.id.btnDeactivateProfile);
         btnLogout = view.findViewById(R.id.btnLogout);
+        Button btnTopUpMoney = view.findViewById(R.id.btnTopUpMoney);
 
         // Fetch and display user details
         fetchUserDetails();
@@ -43,6 +45,8 @@ public class ProfileFragment extends Fragment {
         btnEditProfile.setOnClickListener(v -> editProfile());
         btnDeactivateProfile.setOnClickListener(v -> showDeactivateConfirmationDialog());
         btnLogout.setOnClickListener(v -> logout());
+        btnTopUpMoney.setOnClickListener(v -> showTopUpMoneyDialog());
+
 
         return view;
     }
@@ -136,5 +140,83 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(requireContext(), LoginScreen.class);
         startActivity(intent);
         requireActivity().finish(); // Close the current activity
+    }
+
+    private void showTopUpMoneyDialog() {
+        // Inflate the dialog layout
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_top_up_money, null);
+
+        // Find the EditText in the dialog layout
+        EditText etBalance = dialogView.findViewById(R.id.etBalance);
+
+        // Set the current balance as the default value
+        etBalance.setText(String.valueOf(SharedPrefManager.getInstance(requireContext()).getBalance()));
+
+        // Create the dialog
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setTitle("Top Up Money")
+                .setMessage("When successfully updated, the application will automatically log out.")
+                .setView(dialogView)
+                .setPositiveButton("Update", (dialogInterface, which) -> {
+                    // Get the updated balance value
+                    String newBalance = etBalance.getText().toString().trim();
+                    if (!newBalance.isEmpty()) {
+                        // Call the API to update the balance
+                        updateBalance(Double.parseDouble(newBalance));
+                    } else {
+                        Toast.makeText(requireContext(), "Please enter a valid balance", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", (dialogInterface, which) -> dialogInterface.dismiss())
+                .create();
+
+        // Show the dialog
+        dialog.show();
+    }
+    private void updateBalance(double newBalance) {
+        int userId = SharedPrefManager.getInstance(requireContext()).getUserId();
+        String token = SharedPrefManager.getInstance(requireContext()).getToken();
+        String url = "http://10.0.2.2:8000/api/users/" + userId + "/update/balance";
+
+        // Create the request body
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("balance", newBalance);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, url, requestBody,
+                response -> {
+                    try {
+                        // Parse the response
+                        JSONObject user = response.getJSONObject("user");
+                        double updatedBalance = user.getDouble("balance");
+
+                        // Update the balance in SharedPreferences
+//                        SharedPrefManager.getInstance(requireContext()).saveBalance(updatedBalance);
+
+                        // Show a success message
+                        Toast.makeText(requireContext(), "Balance updated successfully", Toast.LENGTH_SHORT).show();
+                        logout();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error parsing response", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(requireContext(), "Error updating balance", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue
+        Volley.newRequestQueue(requireContext()).add(request);
     }
 }

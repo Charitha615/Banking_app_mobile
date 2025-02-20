@@ -32,6 +32,7 @@ Route::get('/users/{id}', [AuthController::class, 'getUserById']);
 Route::get('/users/{id}', [AuthController::class, 'getUserById']);
 Route::post('/users/{id}/deactivate', [AuthController::class, 'deleteUserById']);
 Route::post('/users/{id}/update', [AuthController::class, 'updateUser']);
+Route::post('/users/{id}/update/balance', [AuthController::class, 'updateBalance']);
 
 Route::middleware('auth:sanctum')->post('/paybills/create', [PayBillController::class, 'store']);
 Route::post('/paybills/user/{userId}', [PayBillController::class, 'index']);
